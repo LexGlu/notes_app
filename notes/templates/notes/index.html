@@ -6,9 +6,10 @@
 {% endblock %}
 
 {% block content %}
+    <h3>Categories</h3>
     <ul>
-    {% for note in notes_list %}
-        <li><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></li>
+    {% for category in categories_list %}
+        <li><a href="{% url 'category_detail' category.id %}">{{ category.title }}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}

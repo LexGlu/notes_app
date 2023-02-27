@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
     {{ note.title }}
 {%  endblock %}
 
 {% block content %}
-    <h2>{{ note.title }}</h2>
-    <p>{{ note.content }}</p>
+    <h3>{{ note.title }}</h3>
+    <p>{{ note.text }}</p>
     <p>
         note created: {{ note.created_date }} <br>
-        last updated: {{ note.upd_date }}
+        last updated: {{ note.upd_date }}<br>
     </p>
+    <p><a href="{% url 'category_detail' note.category_id %}">{{ note.category.title }} category</a></p>
 
 {% endblock %}
