@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{% static 'notes/images/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'notes/css/notes.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+      <nav>
+          <h1><a href="{% url 'notes_list' %}">My Notes</a></h1>
+      </nav>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+      &copy; 2023 MyNoteApp. All rights not reserved.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    {{ note.title }}
+{%  endblock %}
+
+{% block content %}
+    <h2>{{ note.title }}</h2>
+    <p>{{ note.content }}</p>
+    <p>
+        note created: {{ note.created_date }} <br>
+        last updated: {{ note.upd_date }}
+    </p>
+
+{% endblock %}
