@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Note
+from .models import Note, Category
 
 
-admin.site.register(Note)  # Note class will be showed in admin panel
+admin.site.register(Note)
+admin.site.register(Category)
