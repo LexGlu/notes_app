@@ -26,3 +26,4 @@ def index(request):
 
 def note_new(request):
     pass
+
