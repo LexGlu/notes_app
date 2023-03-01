@@ -102,6 +102,6 @@ def filtered_results(request):
         notes = notes.filter(reminder__gte=start_date)
     elif end_date:
         notes = notes.filter(reminder__lte=end_date)
-
+        
     context = {'notes': notes, 'start_date': start_date, 'end_date': end_date, 'category': category}
     return render(request, 'notes/filtered_results.html', context)
