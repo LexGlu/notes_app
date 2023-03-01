@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
     My notes
 {% endblock %}
@@ -12,4 +11,9 @@
         <li><a href="{% url 'category_detail' category.id %}">{{ category.title }}</a></li>
     {% endfor %}
     </ul>
+
+    <a href="{% url 'new_note' 0%}">
+        <button type="button" class="btn btn-outline-primary btn-with-margin">Add a new note</button>
+    </a>
+
 {% endblock %}

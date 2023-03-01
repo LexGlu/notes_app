@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    My all notes
+{%  endblock %}
+
+{% block content %}
+
+    <div id = "searchbar">
+        <form action={% url 'search_notes'%}>
+                <input type="text" name="query" placeholder="Search notes by title">
+            <button type="submit" class="">Search</button>
+        </form>
+    </div>
+
+    <ul>
+    {% for note in notes_list %}
+        <li><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'new_note' 0 %}">
+        <button type="button" class="btn btn-outline-primary btn-with-margin">Add a new note</button>
+    </a>
+
+    <div id = "filter">
+    <p>Filter notes by category or reminder</p>
+    <form action={% url 'filtered_results' %}>
+        <label for="category"></label>
+        <select name="category" id="category">
+            <option value="all">All categories</option>
+            {% for category in categories_list %}
+                <option value="{{ category.title }}"
+                        {% if request.GET.category == category.title %}
+                            selected
+                        {% endif %}>
+                            {{ category.title }}
+                </option>
+            {% endfor %}
+            <option value="uncategorized">Without category</option>
+        </select>
+        <label for="start_date">Start date:</label>
+        <input type="date" name="start_date" id="start_date" value="{% if request.GET.start_date %}{{ request.GET.start_date }}{% endif %}">
+        <label for="end_date">End date:</label>
+        <input type="date" name="end_date" id="end_date" value="{% if request.GET.end_date %}{{ request.GET.end_date }}{% endif %}">
+        <button type="submit">Filter</button>
+    </form>
+    </div>
+
+    <p><a href="{% url 'categories_list' %}">Browse by category</a></p>
+
+{% endblock %}

@@ -12,4 +12,8 @@
         <li><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></li>
     {% endfor %}
     </ul>
+
+    <a href="{% url 'new_note' category.id %}">
+        <button type="button" class="btn btn-outline-primary btn-with-margin">Add a new note</button>
+    </a>
 {% endblock %}

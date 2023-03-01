@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Filtered notes
+{%  endblock %}
+
+
+{% block content %}
+    <h3>
+        Notes
+        {% if category == 'all' %}
+            in all categories
+        {% elif category == 'uncategorized'%}
+            without category
+        {% else %}
+            in category {{ category.lower }}
+        {% endif %}
+        {%  if start_date and end_date %}
+            with reminder set between {{ start_date }} and {{ end_date }}
+        {% elif start_date and not end_date %}
+            with reminder set starting from {{ start_date }}
+        {% elif not start_date and end_date %}
+            with reminder set before <td>{{ end_date }}</td>
+        {% endif %}
+    </h3>
+    <ul>
+      {% for note in notes %}
+        <li><a href="{% url 'note_detail' note.pk %}">{{ note.title }}</a></li>
+      {% empty %}
+          <p style="margin-left: -10px">No notes found!</p>
+      {% endfor %}
+    </ul>
+{% endblock %}
