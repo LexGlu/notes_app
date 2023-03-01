@@ -17,3 +17,93 @@ footer {
   margin-top: 30px;
   margin-left: 30px;
 }
+
+.btn-with-margin {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+text::placeholder {
+    margin-left: 30px;
+}
+
+#searchbar form {
+    margin-left: 30px;
+}
+
+#searchbar input::placeholder {
+    font-weight: bold;
+    opacity: 0.5;
+    color: #296e6b;
+}
+
+#searchbar input {
+    color: #2b4a4a;
+}
+
+#filter form {
+    margin-left: 30px;
+    margin-top: -10px;
+    color: #2b4a4a;
+}
+
+#filter p {
+    margin-top: 20px;
+    color: #2b4a4a;
+    font-size: medium;
+    font-weight: bold;
+}
+
+#filter input {
+    color: #2b4a4a;
+    font-size: small;
+}
+
+#filter label {
+    color: #2b4a4a;
+    font-size: small;
+}
+
+#filter select {
+    color: #2b4a4a;
+}
+
+
+textarea {
+    margin-left: 30px;
+    margin-top: 10px;
+    width: 80%;
+    height: 100px;
+    color: #2b4a4a;
+}
+
+.form-group {
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+#note_title {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    color: #2b4a4a;
+}
+
+#note_element {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    color: #2b4a4a;
+}
+
+#note_title input {
+    margin-left: 33px;
+    width: 80%;
+}
+
+#note_element textarea {
+    margin-left: 35px;
+    width: 80%;
+}
+
+#note_element select {
+    margin-left: 5px;
+}

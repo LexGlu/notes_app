@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # third party apps
-
+    'django_bootstrap5',  # https://pypi.org/project/django-bootstrap5/
     # project apps
     'notes',
 ]

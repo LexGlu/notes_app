@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div id="note_title">
+            {{ note_form.title.label_tag }}
+            {{ note_form.title }}
+        </div>
+        <div id="note_element">
+            {{ note_form.text.label_tag }}
+            {{ note_form.text }}
+        </div>
+        <div id="note_element">
+            {{ note_form.category.label_tag }}
+            {{ note_form.category }}
+        </div>
+        <div id="note_element">
+            {{ note_form.reminder.label_tag }}
+            {{ note_form.reminder }}
+        </div>
+        <button type="submit" class="btn btn-outline-primary btn-with-margin">Save Note</button>
+    </form>
+
+{% endblock %}
