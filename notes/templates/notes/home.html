@@ -7,6 +7,14 @@
 
 {% block content %}
 
+    {% if user.is_authenticated %}
+        <p>Hi, {{ user.username }}!<br><a href="{% url 'notes:logout' %}">Log Out</a></p>
+
+        {% else %}
+        <p>You are not logged in<br><a href="{% url 'notes:login' %}">Log In</a></p>
+
+    {% endif %}
+
     <div id = "searchbar">
         <form action={% url 'notes:search_notes'%}>
                 <input type="text" name="query" placeholder="Search notes by title">

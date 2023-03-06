@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.db.models import Q
 from .models import Note, Category
-from .forms import NoteForm
-# from django.views import generic
-# try to implement views as class-based views
+from .forms import NoteForm, NewUserForm
+from django.contrib.auth import login
+from django.contrib import messages
 
 
 def home(request):
@@ -11,6 +11,21 @@ def home(request):
     categories_list = get_list_or_404(Category.objects.order_by('-title'))
     context = {'notes_list': notes_list, 'categories_list': categories_list}
     return render(request, 'notes/home.html', context)
+
+
+def register(request):
+    if request.method == 'POST':
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful.")
+            return redirect("notes:homepage")
+        else:
+            messages.error(request, "Unsuccessful registration. Invalid information.")
+    else:
+        form = NewUserForm()
+    return render(request, "notes/register.html", {"register_form": form})
 
 
 def note_detail(request, note_id):
@@ -41,6 +56,7 @@ def new_note(request, category_id):
         note_form = NoteForm(request.POST)
         if note_form.is_valid():
             note = note_form.save()
+            note.author = request.user
             note.save()
             return redirect('notes:note_detail', note_id=note.id)
     else:
@@ -53,23 +69,30 @@ def new_note(request, category_id):
 
 def edit_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
-    if request.method == 'POST':
-        note_form = NoteForm(request.POST)
-        if note_form.is_valid():
-            note.title = note_form.cleaned_data['title']
-            note.text = note_form.cleaned_data['text']
-            note.category = note_form.cleaned_data['category']
-            note.reminder = note_form.cleaned_data['reminder']
-            note.save()
-            return redirect('notes:note_detail', note_id=note.id)
+    if note.author != request.user and not request.user.is_superuser:
+        messages.error(request, "You do not have permission to edit this note.")
+        return redirect('notes:note_detail', note_id=note.id)
     else:
-        note_form = NoteForm(initial={'title': note.title, 'text': note.text, 'category': note.category,
-                                      'reminder': note.reminder})
-    return render(request, 'notes/note_form.html', {'note_form': note_form})
+        if request.method == 'POST':
+            note_form = NoteForm(request.POST)
+            if note_form.is_valid():
+                note.title = note_form.cleaned_data['title']
+                note.text = note_form.cleaned_data['text']
+                note.category = note_form.cleaned_data['category']
+                note.reminder = note_form.cleaned_data['reminder']
+                note.save()
+                return redirect('notes:note_detail', note_id=note.id)
+        else:
+            note_form = NoteForm(initial={'title': note.title, 'text': note.text, 'category': note.category,
+                                          'reminder': note.reminder})
+        return render(request, 'notes/note_form.html', {'note_form': note_form})
 
 
 def delete_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
+    if note.author != request.user and not request.user.is_superuser:
+        messages.error(request, "You do not have permission to delete this note.")
+        return redirect('notes:note_detail', note_id=note.id)
     note.delete()
     return redirect('notes:homepage')
 

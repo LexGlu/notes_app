@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     # third party apps
     'django_bootstrap5',  # https://pypi.org/project/django-bootstrap5/
     'crispy_forms',  # https://django-crispy-forms.readthedocs.io/en/latest/install.html
-    'crispy_bootstrap4',  # https://pypi.org/project/django-crispy-bootstrap5/
+    'crispy_bootstrap5',  # https://pypi.org/project/django-crispy-bootstrap5/
     # project apps
     'notes',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -128,5 +130,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

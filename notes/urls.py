@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 app_name = 'notes'
@@ -12,5 +12,7 @@ urlpatterns = [
     path('search/', views.search_notes, name='search_notes'),
     path('filter/', views.filtered_results, name='filtered_results'),
     path('easter_egg/', views.easter_egg, name='easter_egg'),
+    path('account/', include('django.contrib.auth.urls')),
+    path('account/register/', views.register, name='register'),
     path('', views.home, name='homepage'),
 ]
