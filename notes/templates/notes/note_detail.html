@@ -6,6 +6,15 @@
 
 {% block content %}
     <h3>{{ note.title }}</h3>
+
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                <p style="color: red">{{ message }}</p>
+                </div>
+            {% endfor %}
+    {% endif %}
+
     <label for="note_text">
         <textarea id="note_text" name="note_text" rows="10" cols="50" readonly>{{ note.text }}</textarea>
     </label>
@@ -21,7 +30,9 @@
         <button type="button" class="btn btn-outline-danger btn-with-margin">Delete note</button>
     </a>
 
+
     <p style="font-style: italic ">
+        Author: {{ note.author.username}}<br>
         {% if note.category != None %}
             Category: <a href="{% url 'notes:category_detail' note.category_id %}">{{ note.category.title.lower }}</a>
         {% else %}

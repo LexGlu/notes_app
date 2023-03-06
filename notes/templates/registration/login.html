@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+    <!--Register-->
+    <div class="container py-5">
+        <h3>Log In</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button class="btn btn-primary btn-with-margin" type="submit">Log in</button>
+        </form>
+         <p class="text-center">If you do not have an account, <a href="{% url 'notes:register' %}">register</a> instead.</p>
+    </div>
+
+{% endblock %}

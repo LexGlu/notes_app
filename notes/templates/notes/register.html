@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+    <!--Register-->
+    <div class="container py-5">
+        <h3>Register</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                <p style="color: red">{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ register_form.as_p}}
+            <button class="btn btn-primary btn-with-margin" type="submit">Register</button>
+        </form>
+        <p class="text-center">If you already have an account, <a href="{% url 'notes:login' %}">login</a> instead.</p>
+    </div>
+
+{% endblock %}
