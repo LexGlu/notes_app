@@ -4,7 +4,7 @@
     <h3>Search results for "{{ query }}"</h3>
     <ul>
       {% for note in notes %}
-        <li><a href="{% url 'note_detail' note.pk %}">{{ note.title }}</a></li>
+        <li><a href="{% url 'notes:note_detail' note.pk %}">{{ note.title }}</a></li>
       {% empty %}
           <p style="margin-left: -10px">No notes containing "{{ query }}" found!</p>
       {% endfor %}

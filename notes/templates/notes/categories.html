@@ -8,11 +8,11 @@
     <h3>Categories</h3>
     <ul>
     {% for category in categories_list %}
-        <li><a href="{% url 'category_detail' category.id %}">{{ category.title }}</a></li>
+        <li><a href="{% url 'notes:category_detail' category.id %}">{{ category.title }}</a></li>
     {% endfor %}
     </ul>
 
-    <a href="{% url 'new_note' 0%}">
+    <a href="{% url 'notes:new_note' 0%}">
         <button type="button" class="btn btn-outline-primary btn-with-margin">Add a new note</button>
     </a>
 

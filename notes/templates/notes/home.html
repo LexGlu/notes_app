@@ -8,7 +8,7 @@
 {% block content %}
 
     <div id = "searchbar">
-        <form action={% url 'search_notes'%}>
+        <form action={% url 'notes:search_notes'%}>
                 <input type="text" name="query" placeholder="Search notes by title">
             <button type="submit" class="">Search</button>
         </form>
@@ -16,17 +16,17 @@
 
     <ul>
     {% for note in notes_list %}
-        <li><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></li>
+        <li><a href="{% url 'notes:note_detail' note.id %}">{{ note.title }}</a></li>
     {% endfor %}
     </ul>
 
-    <a href="{% url 'new_note' 0 %}">
+    <a href="{% url 'notes:new_note' 0 %}">
         <button type="button" class="btn btn-outline-primary btn-with-margin">Add a new note</button>
     </a>
 
     <div id = "filter">
     <p>Filter notes by category or reminder</p>
-    <form action={% url 'filtered_results' %}>
+    <form action={% url 'notes:filtered_results' %}>
         <label for="category"></label>
         <select name="category" id="category">
             <option value="all">All categories</option>
@@ -48,6 +48,6 @@
     </form>
     </div>
 
-    <p><a href="{% url 'categories_list' %}">Browse by category</a></p>
+    <p><a href="{% url 'notes:categories_list' %}">Browse by category</a></p>
 
 {% endblock %}

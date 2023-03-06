@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{#{% load crispy_forms_tags %}#}
 
+{% block title %}Create Note{% endblock %}
 {% block content %}
     <form method="post">
         {% csrf_token %}
@@ -19,6 +21,7 @@
             {{ note_form.reminder.label_tag }}
             {{ note_form.reminder }}
         </div>
+
         <button type="submit" class="btn btn-outline-primary btn-with-margin">Save Note</button>
     </form>
 
