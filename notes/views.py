@@ -52,6 +52,9 @@ def form_view(request):
 
 
 def new_note(request, category_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to create a new note.")
+        return redirect('notes:login')
     if request.method == 'POST':
         note_form = NoteForm(request.POST)
         if note_form.is_valid():

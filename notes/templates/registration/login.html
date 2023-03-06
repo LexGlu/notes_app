@@ -6,6 +6,15 @@
     <!--Register-->
     <div class="container py-5">
         <h3>Log In</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <p style="color: red">{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p}}
