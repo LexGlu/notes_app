@@ -1,5 +1,6 @@
 {% load static %}
 {% load django_bootstrap5 %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +12,20 @@
 <body>
     <header>
       <nav>
-          <h2><a href="{% url 'homepage' %}">My Notes</a></h2>
+          <h2><a href="{% url 'notes:homepage' %}">My Notes</a></h2>
       </nav>
     </header>
     <main>
       {% block content %}{% endblock %}
     </main>
     <footer>
-      &copy 2023 MyNoteApp. All rights not reserved.
+        &copy 2023 MyNoteApp. All rights not reserved.
+
+        {% if not hide_egg %}
+        <a href="{% url 'notes:easter_egg' %}" >
+            <img src="{% static 'notes/images/easter-egg.png' %}" alt="easter_egg" width="20px" height="20px">
+        </a>
+        {% endif %}
     </footer>
 </body>
 </html>

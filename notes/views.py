@@ -1,12 +1,9 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
-from django.http import HttpResponse
 from django.db.models import Q
 from .models import Note, Category
 from .forms import NoteForm
-
-
-def hello(request):
-    return HttpResponse('Hello from Notes app.')
+# from django.views import generic
+# try to implement views as class-based views
 
 
 def home(request):
@@ -45,7 +42,7 @@ def new_note(request, category_id):
         if note_form.is_valid():
             note = note_form.save()
             note.save()
-            return redirect('note_detail', note_id=note.id)
+            return redirect('notes:note_detail', note_id=note.id)
     else:
         if category_id == 0:
             note_form = NoteForm()
@@ -64,7 +61,7 @@ def edit_note(request, note_id):
             note.category = note_form.cleaned_data['category']
             note.reminder = note_form.cleaned_data['reminder']
             note.save()
-            return redirect('note_detail', note_id=note.id)
+            return redirect('notes:note_detail', note_id=note.id)
     else:
         note_form = NoteForm(initial={'title': note.title, 'text': note.text, 'category': note.category,
                                       'reminder': note.reminder})
@@ -74,7 +71,7 @@ def edit_note(request, note_id):
 def delete_note(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
     note.delete()
-    return redirect('homepage')
+    return redirect('notes:homepage')
 
 
 def search_notes(request):
@@ -105,3 +102,8 @@ def filtered_results(request):
         
     context = {'notes': notes, 'start_date': start_date, 'end_date': end_date, 'category': category}
     return render(request, 'notes/filtered_results.html', context)
+
+
+def easter_egg(request):
+    context = {'hide_egg': 1}
+    return render(request, 'notes/easter_egg.html', context)

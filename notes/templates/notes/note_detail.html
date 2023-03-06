@@ -14,16 +14,16 @@
         last updated: {{ note.upd_date }}<br>
     </p>
 
-    <a href="{% url 'edit_note' note.id %}">
+    <a href="{% url 'notes:edit_note' note.id %}">
         <button type="button" class="btn btn-outline-danger btn-with-margin">Edit note</button>
     </a><br>
-    <a href="{% url 'delete_note' note.id %}">
+    <a href="{% url 'notes:delete_note' note.id %}">
         <button type="button" class="btn btn-outline-danger btn-with-margin">Delete note</button>
     </a>
 
     <p style="font-style: italic ">
         {% if note.category != None %}
-            Category: <a href="{% url 'category_detail' note.category_id %}">{{ note.category.title.lower }}</a>
+            Category: <a href="{% url 'notes:category_detail' note.category_id %}">{{ note.category.title.lower }}</a>
         {% else %}
             No category
         {% endif %}
