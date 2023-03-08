@@ -51,7 +51,7 @@ def form_view(request):
     return render(request, 'notes/note_form.html', context)
 
 
-def new_note(request, category_id):
+def new_note(request):
     if not request.user.is_authenticated:
         messages.error(request, "You must be logged in to create a new note.")
         return redirect('notes:login')
@@ -63,10 +63,7 @@ def new_note(request, category_id):
             note.save()
             return redirect('notes:note_detail', note_id=note.id)
     else:
-        if category_id == 0:
-            note_form = NoteForm()
-        else:
-            note_form = NoteForm(initial={'category': Category.objects.get(pk=category_id)})
+        note_form = NoteForm()
         return render(request, 'notes/note_form.html', {'note_form': note_form})
 
 
