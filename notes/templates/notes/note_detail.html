@@ -47,4 +47,12 @@
         {% endif %}
     </p>
 
+    <p style="font-style: italic ">
+        {% if note.public != True %}
+            Note is private
+        {% else %}
+            Note is public
+        {% endif %}
+    </p>
+
 {% endblock %}

@@ -7,11 +7,22 @@
 
 {% block content %}
 
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                <p style="color: red">{{ message }}</p>
+                </div>
+            {% endfor %}
+    {% endif %}
+
+
     {% if user.is_authenticated %}
         <p>Hi, {{ user.username }}!<br><a href="{% url 'notes:logout' %}">Log Out</a></p>
 
         {% else %}
-        <p>You are not logged in<br><a href="{% url 'notes:login' %}">Log In</a></p>
+        <p>You are not logged in<br><a href="{% url 'notes:login' %}">Log In</a> or
+            <a href="{% url 'notes:register' %}">Register</a>
+        </p>
 
     {% endif %}
 
@@ -22,9 +33,21 @@
         </form>
     </div>
 
+    <p>Your notes:</p>
+    {% if user_notes %}
+        <ul>
+            {% for user_note in user_notes %}
+                <li><a href="{% url 'notes:note_detail' user_note.id %}">{{ user_note.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="font-style: italic">You have no notes yet</p>
+    {% endif %}
+
+    <p>Public notes:</p>
     <ul>
-    {% for note in notes_list %}
-        <li><a href="{% url 'notes:note_detail' note.id %}">{{ note.title }}</a></li>
+    {% for public_note in public_notes %}
+        <li><a href="{% url 'notes:note_detail' public_note.id %}">{{ public_note.title }}</a></li>
     {% endfor %}
     </ul>
 

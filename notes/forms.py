@@ -25,6 +25,7 @@ class NoteForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False)
     reminder = forms.DateTimeField(required=False, widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+    public_note = forms.BooleanField(required=False)
 
     def save(self):
         note = Note()
@@ -32,4 +33,5 @@ class NoteForm(forms.Form):
         note.text = self.cleaned_data['text']
         note.category = self.cleaned_data['category']
         note.reminder = self.cleaned_data['reminder']
+        note.public = self.cleaned_data['public_note']
         return note
