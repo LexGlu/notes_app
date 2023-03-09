@@ -7,11 +7,10 @@ from django.contrib import messages
 
 
 def home(request):
-    notes_list = get_list_or_404(Note.objects.order_by('-created_date'))
     public_notes = get_list_or_404(Note.objects.filter(public=True).order_by('-created_date'))
     categories_list = get_list_or_404(Category.objects.order_by('-title'))
     if request.user.is_authenticated:
-        user_notes = get_list_or_404(Note.objects.filter(author=request.user).order_by('-created_date'))
+        user_notes = Note.objects.filter(author=request.user).order_by('-created_date')
         context = {'public_notes': public_notes, 'categories_list': categories_list, 'user_notes': user_notes}
     else:
         context = {'public_notes': public_notes, 'categories_list': categories_list}
