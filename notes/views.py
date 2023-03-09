@@ -8,8 +8,13 @@ from django.contrib import messages
 
 def home(request):
     notes_list = get_list_or_404(Note.objects.order_by('-created_date'))
+    public_notes = get_list_or_404(Note.objects.filter(public=True).order_by('-created_date'))
     categories_list = get_list_or_404(Category.objects.order_by('-title'))
-    context = {'notes_list': notes_list, 'categories_list': categories_list}
+    if request.user.is_authenticated:
+        user_notes = get_list_or_404(Note.objects.filter(author=request.user).order_by('-created_date'))
+        context = {'public_notes': public_notes, 'categories_list': categories_list, 'user_notes': user_notes}
+    else:
+        context = {'public_notes': public_notes, 'categories_list': categories_list}
     return render(request, 'notes/home.html', context)
 
 
@@ -29,24 +34,35 @@ def register(request):
 
 
 def note_detail(request, note_id):
+
     note = get_object_or_404(Note, pk=note_id)
-    return render(request, 'notes/note_detail.html', {'note': note})
+    if note.author == request.user or note.public:
+        return render(request, 'notes/note_detail.html', {'note': note})
+    else:
+        messages.error(request, "Requested note either does not exist or you do not have access to it.")
+        return redirect('notes:homepage')
 
 
 def category_detail(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
-    notes = category.notes.all()
+    if request.user.is_authenticated:
+        notes = Note.objects.filter(Q(category=category) & (Q(author=request.user) | Q(public=True)))
+    else:
+        notes = Note.objects.filter(Q(category=category) & Q(public=True))
     return render(request, 'notes/category_detail.html', {'category': category, 'notes': notes})
 
 
 def categories(request):
-    categories_list = get_list_or_404(Category.objects.order_by('-title'))
-    context = {'categories_list': categories_list}
+    if request.user.is_authenticated:
+        categories_user_or_public = Category.objects.filter(Q(notes__author=request.user) | Q(notes__public=True)).distinct()
+        context = {'categories_list': categories_user_or_public}
+    else:
+        context = {'categories_list': Category.objects.filter(notes__public=True).distinct()}
     return render(request, 'notes/categories.html', context)
 
 
 def form_view(request):
-    note_form = NoteForm()
+    note_form = NoteForm(initial={'public_note': False})
     context = {'note_form': note_form}
     return render(request, 'notes/note_form.html', context)
 
@@ -80,6 +96,7 @@ def edit_note(request, note_id):
                 note.text = note_form.cleaned_data['text']
                 note.category = note_form.cleaned_data['category']
                 note.reminder = note_form.cleaned_data['reminder']
+                note.public = note_form.cleaned_data['public_note']
                 note.save()
                 return redirect('notes:note_detail', note_id=note.id)
         else:
@@ -99,7 +116,10 @@ def delete_note(request, note_id):
 
 def search_notes(request):
     query = request.GET.get('query')
-    notes = Note.objects.filter(Q(title__icontains=query))
+    if not request.user.is_authenticated:
+        notes = Note.objects.filter(Q(title__icontains=query) & Q(public=True))
+    else:
+        notes = Note.objects.filter(Q(title__icontains=query) & (Q(author=request.user) | Q(public=True)))
     context = {'notes': notes, 'query': query}
     return render(request, 'notes/search_notes.html', context)
 
@@ -122,6 +142,11 @@ def filtered_results(request):
         notes = notes.filter(reminder__gte=start_date)
     elif end_date:
         notes = notes.filter(reminder__lte=end_date)
+
+    if not request.user.is_authenticated:
+        notes = notes.filter(public=True)
+    else:
+        notes = notes.filter(Q(author=request.user) | Q(public=True))
         
     context = {'notes': notes, 'start_date': start_date, 'end_date': end_date, 'category': category}
     return render(request, 'notes/filtered_results.html', context)

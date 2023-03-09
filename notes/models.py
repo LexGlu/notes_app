@@ -18,6 +18,7 @@ class Note(models.Model):
     reminder = models.DateTimeField(null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='notes', null=True, blank=True)
+    public = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

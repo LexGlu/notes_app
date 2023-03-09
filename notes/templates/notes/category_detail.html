@@ -7,11 +7,16 @@
 
 {% block content %}
     <h3>Notes in {{ category.title }} category </h3>
+
+    {% if notes %}
     <ul>
     {% for note in notes %}
         <li><a href="{% url 'notes:note_detail' note.id %}">{{ note.title }}</a></li>
     {% endfor %}
     </ul>
+    {% else %}
+        <p>There are no notes in this category.</p>
+    {% endif %}
 
     <a href="{% url 'notes:new_note' %}">
         <button type="button" class="btn btn-outline-primary btn-with-margin">Add a new note</button>

@@ -11,10 +11,10 @@ def create_test_user():
     return User.objects.create_user(username='test_user', password='password')
 
 
-def create_test_note(category=None, reminder=None):
+def create_test_note(category=None, reminder=None, public=False):
     """Creates a test note with user and optional category and reminder"""
     return Note.objects.create(title='Test note', text='Test text', author=create_test_user(), category=category,
-                               reminder=reminder)
+                               reminder=reminder, public=public)
 
 
 class TestNotes(TestCase):
@@ -110,7 +110,7 @@ class TestViews(TestCase):
 
     def test_edit_note_view_when_user_not_logged_in(self):
         """Test that edit note view returns 302 when user is not logged in and redirects to note detail page"""
-        note = create_test_note()
+        note = create_test_note(public=True)
         response = self.client.get(reverse('notes:edit_note', args=[note.id]))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('notes:note_detail', args=[note.id]))
@@ -130,11 +130,10 @@ class TestViews(TestCase):
 
     def test_delete_note_view_when_user_not_logged_in(self):
         """
-        Test that ensures that delete_note view (if user is NOT logged in):
-        1) does not delete note
-        2) redirects to note detail page
+        Test delete_note view (if user is NOT logged in) not to delete note and redirect to note detail page
         """
-        note = create_test_note()
+        note = create_test_note(public=True)
+        self.client.logout()
         response = self.client.get(reverse('notes:delete_note', args=[note.id]))
         self.assertTrue(Note.objects.filter(pk=note.id).exists())
         self.assertEqual(response.status_code, 302)
