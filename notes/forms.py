@@ -1,7 +1,9 @@
-from django import forms
 from .models import Note, Category
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+from django import forms
 
 
 class NewUserForm(UserCreationForm):
@@ -21,6 +23,13 @@ class NewUserForm(UserCreationForm):
 
 class NoteForm(forms.Form):
     """Form for creating a new note"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Save note', css_class='btn btn-success'))
+
     title = forms.CharField(max_length=200)
     text = forms.CharField(widget=forms.Textarea)
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False)
@@ -35,3 +44,16 @@ class NoteForm(forms.Form):
         note.reminder = self.cleaned_data['reminder']
         note.public = self.cleaned_data['public_note']
         return note
+
+
+class LoginForm(forms.Form):
+    """Form for logging in"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Log in', css_class='btn btn-success'))
+
+    username = forms.CharField(max_length=200)
+    password = forms.CharField(widget=forms.PasswordInput)

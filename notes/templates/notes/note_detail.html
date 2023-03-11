@@ -16,7 +16,7 @@
     {% endif %}
 
     <label for="note_text">
-        <textarea id="note_text" name="note_text" rows="10" cols="50" readonly>{{ note.text }}</textarea>
+        <textarea class=form-control id="note_text" name="note_text" rows="10" cols="50" readonly>{{ note.text }}</textarea>
     </label>
     <p>
         note created: {{ note.created_date }}<br>
@@ -24,10 +24,13 @@
     </p>
 
     <a href="{% url 'notes:edit_note' note.id %}">
-        <button type="button" class="btn btn-outline-danger btn-with-margin">Edit note</button>
+        <button type="button" class="btn btn-outline-primary btn-with-margin"
+                style="margin-bottom: -10px; margin-top: -10px">Edit note</button>
     </a><br>
     <a href="{% url 'notes:delete_note' note.id %}">
-        <button type="button" class="btn btn-outline-danger btn-with-margin">Delete note</button>
+        <button type="button" class="btn btn-outline-danger btn-with-margin" style="margin-bottom: 10px">
+            Delete note
+        </button>
     </a>
 
 

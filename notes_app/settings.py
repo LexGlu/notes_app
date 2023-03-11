@@ -38,14 +38,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # third party apps
-    'django_bootstrap5',  # https://pypi.org/project/django-bootstrap5/
-    'crispy_forms',  # https://django-crispy-forms.readthedocs.io/en/latest/install.html
-    'crispy_bootstrap5',  # https://pypi.org/project/django-crispy-bootstrap5/
-    # project apps
+    'django_bootstrap5',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'notes',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
