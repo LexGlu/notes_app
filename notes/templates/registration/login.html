@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
 
 {% block title %}Log In{% endblock %}
 
 {% block content %}
     <!--Register-->
-    <div class="container py-5">
+    <div class="container py-5" style="width: 30%; margin-left: 20px; margin-top: -20px; margin-bottom: -20px">
         <h3>Log In</h3>
 
         {% if messages %}
@@ -17,10 +18,11 @@
 
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p}}
+            {{ form|crispy }}
             <button class="btn btn-primary btn-with-margin" type="submit">Log in</button>
         </form>
-         <p class="text-center">If you do not have an account, <a href="{% url 'notes:register' %}">register</a> instead.</p>
+        <div class="alert alert-primary" role="alert" style="margin-top: 10px; margin-left: 30px">
+            If you do not have an account, <a href="{% url 'notes:register' %}">register</a> instead
+        </div>
     </div>
-
 {% endblock %}

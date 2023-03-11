@@ -29,6 +29,8 @@ text::placeholder {
 
 #searchbar form {
     margin-left: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #searchbar input::placeholder {
@@ -70,7 +72,6 @@ text::placeholder {
 
 
 textarea {
-    margin-left: 30px;
     margin-top: 10px;
     width: 80%;
     height: 100px;
@@ -100,10 +101,28 @@ textarea {
 }
 
 #note_element textarea {
-    margin-left: 35px;
+    margin-left: 65px;
     width: 80%;
 }
 
 #note_element select {
     margin-left: 5px;
+}
+
+#note_text {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    color: #2b4a4a;
+}
+
+#div_id_title {
+    width: 80%;
+}
+
+#div_id_text {
+    width: 80%;
+}
+
+#div_id_reminder {
+    width: 80%;
 }
