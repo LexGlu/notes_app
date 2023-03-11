@@ -154,3 +154,18 @@ def filtered_results(request):
 def easter_egg(request):
     context = {'hide_egg': 1}
     return render(request, 'notes/easter_egg.html', context)
+
+
+def my_notes(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to view your notes.")
+        return redirect('notes:login')
+    notes = Note.objects.filter(author=request.user)
+    context = {'notes': notes}
+    return render(request, 'notes/my_notes.html', context)
+
+
+def public_notes(request):
+    notes = Note.objects.filter(public=True)
+    context = {'notes': notes}
+    return render(request, 'notes/public_notes.html', context)

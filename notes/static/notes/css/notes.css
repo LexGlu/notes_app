@@ -126,3 +126,12 @@ textarea {
 #div_id_reminder {
     width: 80%;
 }
+
+#navbar {
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+
+#navbar a {
+    color: #2b4a4a;
+}

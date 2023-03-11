@@ -14,5 +14,7 @@ urlpatterns = [
     path('easter_egg/', views.easter_egg, name='easter_egg'),
     path('account/', include('django.contrib.auth.urls')),
     path('account/register/', views.register, name='register'),
+    path('my_notes/', views.my_notes, name='my_notes'),
+    path('public_notes/', views.public_notes, name='public_notes'),
     path('', views.home, name='homepage'),
 ]
