@@ -1,0 +1,14 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+    <h3>Your notes:</h3>
+    {% if notes %}
+        <ul>
+            {% for user_note in notes %}
+                <li><a href="{% url 'notes:note_detail' user_note.id %}">{{ user_note.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="font-style: italic">You have no notes yet</p>
+    {% endif %}
+{% endblock %}

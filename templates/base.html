@@ -13,9 +13,16 @@
 </head>
 <body>
     <header>
-      <nav>
-          <h2><a href="{% url 'notes:homepage' %}">My Notes</a></h2>
-      </nav>
+{#      <nav>#}
+{#          <h2><a href="{% url 'notes:homepage' %}">My Notes</a></h2>#}
+{#      </nav>#}
+    <nav class="navbar navbar-light" id="navbar">
+        <div id="navbar_main">
+            <a class="navbar-brand" href="{% url 'notes:homepage' %}">Home</a>
+            <a class="navbar-brand" href="{% url 'notes:my_notes' %}">My notes</a>
+            <a class="navbar-brand" href="{% url 'notes:public_notes' %}">Public notes</a>
+        </div>
+    </nav>
     </header>
     <main>
       {% block content %}{% endblock %}
