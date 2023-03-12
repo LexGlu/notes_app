@@ -34,9 +34,8 @@
 
         <div id="searchbar">
         <form class="input-group rounded" action="{% url 'notes:search_notes' %}" style="width: 250px">
-            <input class="form-control rounded" type="search" placeholder="Search note by title" name="query">
+            <input class="form-control rounded" type="search" placeholder="Search note by title" name="query" required>
             <button class="btn btn-primary rounded" type="submit">
-{#                <img src="{% static 'notes/images/search.svg' %}" alt="Search">#}
                 <i class="fa fa-search"></i>
             </button>
         </form>
@@ -90,6 +89,6 @@
     </form>
     </div>
 
-    <p><a href="{% url 'notes:categories_list' %}">Browse by category</a></p>
+    <p style="margin-top: 20px"><a href="{% url 'notes:categories_list' %}">Browse by category</a></p>
 
 {% endblock %}
