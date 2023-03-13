@@ -13,14 +13,15 @@
 </head>
 <body>
     <header>
-{#      <nav>#}
-{#          <h2><a href="{% url 'notes:homepage' %}">My Notes</a></h2>#}
-{#      </nav>#}
+
     <nav class="navbar navbar-light" id="navbar">
         <div id="navbar_main">
             <a class="navbar-brand" href="{% url 'notes:homepage' %}">Home</a>
             <a class="navbar-brand" href="{% url 'notes:my_notes' %}">My notes</a>
             <a class="navbar-brand" href="{% url 'notes:public_notes' %}">Public notes</a>
+            <a href="https://t.me/og1122_test_bot">
+                <img src="{% static 'notes/images/telegram.png' %}" alt="telegram bot" width="25px" height="25px">
+            </a>
         </div>
     </nav>
     </header>
@@ -29,9 +30,8 @@
     </main>
     <footer>
         &copy 2023 MyNoteApp. All rights not reserved.
-
         {% if not hide_egg %}
-        <a href="{% url 'notes:easter_egg' %}" >
+        <a href="{% url 'notes:easter_egg' %}">
             <img src="{% static 'notes/images/easter-egg.png' %}" alt="easter_egg" width="20px" height="20px">
         </a>
         {% endif %}

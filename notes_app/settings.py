@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-0==&n@jpoux4hk0qmsa)&0c7^#e@&y*w6#^5n&+_o+&jxa1k(y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['73b0-193-0-217-181.eu.ngrok.io', 'localhost']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     # local apps
     'notes',
+    'tg_bot',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
